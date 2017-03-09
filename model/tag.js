@@ -2,15 +2,15 @@ var Posts = require('./posts.js');
 
 var getModal = require('./base.js');
 
-var Type = getModal({
-  type: String //类型名称
-}, 'Type');
+var Tag = getModal({
+  tag: String //类型名称
+}, 'Tag');
 
-var model = Type.model;
+var model = Tag.model;
 
 module.exports = {
-  insert: function(type) {
-    return model.create(type);
+  insert: function(tag) {
+    return model.create(tag);
   },
 
   delete: function(id) {
