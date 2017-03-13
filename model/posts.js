@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var getModal = require('./base.js');
 var marked = require('marked');
+var Tag = require('./tag.js');
 
 var Posts = getModal({
   title: String,
@@ -30,10 +31,14 @@ var model = Posts.model,
 module.exports = {
   model: model,
   create: function(post) {
+    var tags = post.tags;
+
     post.pv = 0;
     post.date = new Date();
 
-    return model.create(post)
+    delete post.tag;
+
+    return model.create(post);
   },
 
   remove: function(_id) {
@@ -58,7 +63,7 @@ module.exports = {
   },
 
   findListByPage: function(meta, query) {
-    var newMeta = Object.assign({}, defaultMeta, meta),
+    var newMeta = Object.assign(defaultMeta, meta),
       start = (newMeta.page - 1) * newMeta.limit;
 
     return model

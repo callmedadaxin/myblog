@@ -13,20 +13,21 @@ router.post('/', function(req, res, next) {
     query = {};
 
   type ? query.type = type : '';
+  tag ? query.tag = {
+    $in: [tag]
+  } : '';
 
   Posts.findListByPage(meta, query).then(function(data) {
-    if (tag) {
-      data.list = data.list.filter(function(elem) {
-        return elem.tag.indexOf(tag) >= 0;
-      })
-    }
-
     res.json({
       code: 200,
       data: data
     });
   }).catch(function(err) {
     console.log(err);
+    res.json({
+      code: 500,
+      message: '查询失败！'
+    })
   })
 });
 
