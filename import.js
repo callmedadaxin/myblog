@@ -1,4 +1,4 @@
-require('es6-promise').polyfill();
+require('es6-promise').polyfill()
 var config = require('./config.js');
 var mongoose = require('mongoose'),
   fs = require('fs'),
