@@ -1,7 +1,22 @@
 var mongoose = require('mongoose');
 var getModal = require('./base.js');
 var marked = require('marked');
+var highlight = require('highlight.js');
 var Tag = require('./tag.js');
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: true,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  highlight: function(code) {
+    return highlight.highlightAuto(code).value;
+  }
+});
 
 var Posts = getModal({
   title: String,
