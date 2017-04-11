@@ -62,7 +62,9 @@ export default {
       }
 
       return res;
-    }
+    },
+
+
   },
 
   methods: {
@@ -98,10 +100,22 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@media screen and (max-width: 1400px) {
+  html{
+    overflow: hidden;
+  }
+  .list-wrap {
+    margin-top: 50px;
+    transform: scale(0.6);
+    transform-origin: top center;
+  }
+}
+
 .list-wrap{
   perspective: 1500px;
   height: 1020px;
+
 
   .v-list{
     transition: transform 0.5s;

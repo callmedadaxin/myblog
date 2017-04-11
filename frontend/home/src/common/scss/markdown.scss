@@ -7,14 +7,14 @@
   h1,h2,h3,h4,h5,h6{
     position: relative;
     color: #30aaaa;
-    font-size: 1.3em;
+    font-size: 1.1em;
     margin-top: 20px;
     margin-bottom: 10px;
 
     &:before{
       position: absolute;
       top: 0;
-      left: -25px;
+      left: -20px;
       content: '#';
       color: #30aaaa;
       z-index: 200;
@@ -27,7 +27,7 @@
     hyphens:auto;
   }
   ul {
-    list-style: square;
+    list-style: circle;
     padding-left:1.2em;
   }
   ol {

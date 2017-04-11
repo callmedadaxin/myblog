@@ -22,8 +22,18 @@ module.exports = {
   findList: function() {
     return model.find({}).exec().then(r => {
       var res = r.map(function(elem) {
+        // console.log(elem);
+        // return Posts.model.find({
+        //     'tag': {
+        //       '$in': [elem._id]
+        //     }
+        //   }).then(r=>{
+        //     console.log(r)
+        //   })
         return Posts.model.count({
-            type: elem._id
+            'tag': {
+              '$in': [elem._id]
+            }
           })
           .exec()
           .then(count => {

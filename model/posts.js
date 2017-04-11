@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var getModal = require('./base.js');
 var marked = require('marked');
 var highlight = require('highlight.js');
-var Tag = require('./tag.js');
 
 marked.setOptions({
   renderer: new marked.Renderer(),

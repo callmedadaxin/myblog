@@ -50,17 +50,9 @@ export default {
 
         setTimeout(()=>{
           this.loadingContent = false;
-          this.initDictionary();
         }, 1000);
       });
     },
-
-    initDictionary() {
-      const container = this.$refs.detail,
-        hList = container.getElementsByTagName('h2');
-
-      console.log(hList);
-    } 
   },
 };
 </script>
@@ -72,7 +64,7 @@ export default {
   top: 50%;
   left: 50%;
   transition: all 0.5s;
-  background-color: #eee;
+  background-color: #fff;
   z-index: 1000;
   transform: translate3d(-50%,-50%,0) ;
   opacity: 1;
@@ -100,6 +92,7 @@ export default {
   margin: 0 auto;
   max-width: 900px;
   overflow: hidden;
+  background-color: #fff;
 }
 
 .posts-inner{

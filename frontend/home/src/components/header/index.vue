@@ -47,11 +47,11 @@ export default {
 
 #header-content{
   margin: 0 auto;
+  width: 500px;
   display: flex;
-  width: 600px;
   height: 100%;
   align-items: center;
-  justify-content: space-around;
+  // justify-content: space-around;
   font-size: 18px;
   color: #fff;
 
@@ -66,12 +66,13 @@ export default {
 
       // padding-right: 10px;
     }
-    padding-right: 20px;
+    padding: 0 25px;
     line-height: 1;
     border-right: 1px solid rgba(255,255,255, 0.6);
 
     &:last-child{
       border: none;
+      padding-right: 0;
     }
   }
 }

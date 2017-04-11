@@ -3,8 +3,8 @@ var path = require('path');
 //获取端口
 var port = process.argv[2];
 
-if(isNaN(port) && port <= 10000 && port > 65535){
-    port = 8089;
+if (isNaN(port) && port <= 10000 && port > 65535) {
+  port = 8089;
 }
 
 module.exports = {
@@ -18,11 +18,11 @@ module.exports = {
   },
   //配置proxy跨域
   proxyTable: {
-    '/api': {
-      target: 'http://dev.imoxiu.cn/',
+    '/test': {
+      target: 'http://localhost:3000/',
       changeOrigin: true,
       pathRewrite: {
-        '^/api': ''
+        '^/test': ''
       }
     }
   }

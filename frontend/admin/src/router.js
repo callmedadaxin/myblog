@@ -1,15 +1,16 @@
 import VueRouter from 'vue-router';
 
-const routes = [
-  { path: '/', redirect: '/page1' },
-  {
-    path: '/page1',
-    component: resolve => require(['./views/page1/index'], resolve)
+const routes = [{
+    path: '/',
+    redirect: '/posts'
+  }, {
+    path: '/posts',
+    component: resolve => require(['./views/posts/index'], resolve)
   },
 
   {
-    path: '/page2',
-    component: resolve => require(['./views/page2/index'], resolve),
+    path: '/tags',
+    component: resolve => require(['./views/tags/index'], resolve),
   }
 ]
 
