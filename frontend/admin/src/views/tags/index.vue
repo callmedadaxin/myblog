@@ -10,12 +10,13 @@
         :closable="true"
         :close-transition="false"
         @close="handleClose(tag)"
+        class="tags"
       >
       {{tag.tag}}
       </el-tag>
       <el-input
         class="input-new-tag"
-        v-if="inputVisible"
+        v-show="inputVisible"
         v-model="inputValue"
         ref="saveTagInput"
         size="mini"
@@ -23,7 +24,7 @@
         @blur="handleInputConfirm"
       >
       </el-input>
-      <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+      <el-button v-show="!inputVisible" class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
     </el-card>
   </div>
 </template>
@@ -38,7 +39,9 @@ export default {
       meta: {
         page: 1,
         limit: 25
-      }
+      },
+      inputValue: '',
+      inputVisible: false
     };
   },
 
@@ -59,7 +62,7 @@ export default {
     handleClose(tag) {
       post('tag/delete', { id: tag._id }).then(r=>{
         this.$toast('删除成功！');
-        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+        this.tagList.splice(this.tagList.indexOf(tag), 1);
       }).catch(r=>{
         this.$toast(r.message);
       })
@@ -74,15 +77,30 @@ export default {
 
     handleInputConfirm() {
       let inputValue = this.inputValue;
-      if (inputValue) {
-        this.dynamicTags.push(inputValue);
+      if (!inputValue) {
+        return;
       }
+
       this.inputVisible = false;
       this.inputValue = '';
+
+      post('tag/add', { tag: inputValue }, true).then(r=>{
+        this.$toast('添加成功！');
+        this.tagList.push(r.data);
+      }).catch(r=>{
+        this.$toast(r.message);
+      })
     }
   }
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
+.tags{
+  margin: 0 5px;
+}
+
+.input-new-tag{
+  max-width: 100px;
+}
 </style>
