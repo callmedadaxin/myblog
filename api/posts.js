@@ -104,4 +104,15 @@ router.post('/update', function(req, res, next) {
   })
 })
 
+router.post('/delete', function(req, res, next) {
+  var id = req.body.id;
+
+  Posts.remove(id).then(r => {
+    res.json({
+      code: 200,
+      data: r
+    })
+  })
+})
+
 module.exports = router;

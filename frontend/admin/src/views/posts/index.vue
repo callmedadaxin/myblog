@@ -3,7 +3,9 @@
 		<el-card class="content-card">
       <div slot="header" class="clearfix">
         <span class="card-title">文章列表</span>
-        <el-button style="float: right;" type="primary">发布文章</el-button>
+        <router-link to="posts/add">
+          <el-button style="float: right;" type="primary">发布文章</el-button>
+        </router-link>
       </div>  
       <el-table
         :data="postsList"
@@ -22,7 +24,7 @@
           <template scope="scope">
             <el-button type="text">内容编辑</el-button>
             <el-button type="text">信息编辑</el-button>
-            <el-button type="text">删除</el-button>
+            <el-button type="text" @click="deletePosts(scope.row._id, scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -53,6 +55,15 @@ export default {
   methods: {
     getPostsList() {
       post('posts', this.meta).then(r=>{
+        this.postsList = r.data.list;
+        this.meta = r.data.meta;
+      }).catch(r=>{
+        this.$toast(r.message);
+      })
+    },
+
+    deletePosts(id, index) {
+      post('posts/delete', {id: id}).then(r=>{
         this.postsList = r.data.list;
         this.meta = r.data.meta;
       }).catch(r=>{

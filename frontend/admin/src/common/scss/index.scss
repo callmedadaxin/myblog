@@ -1,12 +1,23 @@
 @import './core/index';
 @import './core/reset';
 
-html{
+html,body,#app,{
 	height: 100%;
+}
+
+#app{
+  display: flex;
+  flex-direction: column;
+}
+
+.el-menu{
+  flex: 0 0 60px;
 }
 
 .main-content{
   padding: 20px;
+  flex: 1;
+  overflow: hidden;
 }
 
 .content-card{

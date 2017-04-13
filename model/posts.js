@@ -24,6 +24,7 @@ var Posts = getModal({
   show: String, //展示图片
   pv: Number, //展示pv
   ctime: String, //创建时间
+  status: Number, //状态
   tag: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Tag'
@@ -49,6 +50,7 @@ module.exports = {
 
     post.pv = 0;
     post.date = new Date();
+    post.status = 1;
 
     delete post.tag;
 
@@ -56,7 +58,9 @@ module.exports = {
   },
 
   remove: function(_id) {
-    return model.findByIdAndRemove(_id);
+    return this.update(_id, {
+      status: 0
+    });
   },
 
   update: function(_id, update) {
@@ -73,12 +77,16 @@ module.exports = {
   },
 
   findList: function() {
-    return model.find({}, 'title abstract show pv ctime label');
+    return model.find({
+      status: 1
+    }, 'title abstract show pv ctime label');
   },
 
   findListByPage: function(meta, query) {
     var newMeta = Object.assign(defaultMeta, meta),
       start = (newMeta.page - 1) * newMeta.limit;
+
+    query.status = 1;
 
     return model
       .find(query, 'title abstract show pv ctime tag type')
