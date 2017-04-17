@@ -64,8 +64,8 @@ export default {
 
     deletePosts(id, index) {
       post('posts/delete', {id: id}).then(r=>{
-        this.postsList = r.data.list;
-        this.meta = r.data.meta;
+        this.postsList.splice(index, 1);
+        this.$toast('删除成功！');
       }).catch(r=>{
         this.$toast(r.message);
       })
