@@ -1,9 +1,9 @@
 <template>
   <transition name="zoom">
     <div class="list-wrap" :class="{ active: showing }">
-      <ul class="v-list">
-        <li v-for="item in items">
-          <div class="item-wrap" @click="showDetail(item._id)">
+      <ul class="v-list" ref="list">
+        <li v-for="(item, index) in items">
+          <div class="item-wrap" @click.prevent.stop="showDetail(item._id, index)">
             <img src="https://p.ssl.qhimg.com/t01c79775dce5c2651e.jpg" alt="">
             <!-- <img :src="item.show" alt=""> -->
             <div class="item-bottom">
@@ -26,6 +26,7 @@
 
 <script>
 import { post } from 'common/js/api';
+import { getOffset } from 'common/js/base';
 
 export default {
   data () {
@@ -68,12 +69,14 @@ export default {
   },
 
   methods: {
-    showDetail(id) {
+    showDetail(id, index) {
+      const position = this.getPosition(index);
+
       this.showing = true;
       this.loadingContent = true;
 
       setTimeout(()=>{
-        this.$router.push({ name: 'detail', query: { id: id } });
+        this.$router.push({ name: 'detail', query: { id: id }, params: { pos: position } });
       }, 200);
     },
 
@@ -85,6 +88,13 @@ export default {
         this.items = r.data.list;
         this.meta = r.data.meta;
       })
+    },
+
+    getPosition(index) {
+      const wrap = this.$refs.list;
+      const target = wrap.getElementsByTagName('li')[index];
+
+      return getOffset(target);
     }
   },
 

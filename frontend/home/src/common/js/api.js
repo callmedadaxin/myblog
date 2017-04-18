@@ -68,6 +68,7 @@ export const post = function(url, data, showLoading) {
     Vue.showLoading();
   }
 
+  console.log(ENV_OPT)
   return Vue.http.post(ENV_OPT.baseApi + url, data).then(r => {
     return r.data;
   })

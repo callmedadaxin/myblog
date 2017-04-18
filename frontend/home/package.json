@@ -12,6 +12,7 @@
     "g2": "^2.2.5",
     "node-sass": "^3.10.1",
     "sass-loader": "^4.0.2",
+    "velocity-animate": "^1.5.0",
     "vue": "^2.0.1",
     "vue-resource": "^1.0.3",
     "vue-router": "^2.1.1",

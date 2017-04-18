@@ -86,7 +86,7 @@ module.exports = {
     var newMeta = Object.assign(defaultMeta, meta),
       start = (newMeta.page - 1) * newMeta.limit;
 
-    query.status = 1;
+    // query.status = 1;
 
     return model
       .find(query, 'title abstract show pv ctime tag type')
