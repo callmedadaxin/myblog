@@ -20,5 +20,8 @@
     "morgan": "~1.7.0",
     "multer": "^1.3.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "qiniu": "^6.1.13"
   }
 }

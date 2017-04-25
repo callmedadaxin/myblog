@@ -20,6 +20,13 @@
       z-index: 200;
     }
   }
+
+  img{
+    max-width: 80%;
+    display: block;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+  }
   p {
     margin: 10px 0;
     -webkit-hypens:auto;
