@@ -76,10 +76,28 @@ module.exports = {
     return model.findByIdAndUpdate(_id, update);
   },
 
-  findList: function() {
-    return model.find({
-      status: 1
-    }, 'title abstract show pv ctime label');
+  findList: function(query) {
+    query = query || {};
+    query.status = 1;
+
+    return model.find(query, 'title abstract show pv ctime tag type');
+  },
+
+  findAndGroup: function(query, group) {
+    query = query || {};
+    query.status = 1;
+
+    return model.find(query, 'title abstract show pv ctime tag type').aggregate([{
+      '$group': {
+        '_id': '$type',
+        items: {
+          $push: {
+            _id: '$_id',
+            title: '$title'
+          }
+        }
+      }
+    }])
   },
 
   findListByPage: function(meta, query) {

@@ -115,4 +115,16 @@ router.post('/delete', function(req, res, next) {
   })
 })
 
+router.post('/group', function(req, res, next) {
+  var id = req.body.id;
+
+  Posts.findAndGroup({}, 'type').then(r => {
+    res.json({
+      code: 200,
+      data: r
+    })
+  })
+})
+
+
 module.exports = router;
