@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Posts = require('../model/posts.js');
+var Type = require('../model/type.js');
 
 router.post('/', function(req, res, next) {
   var meta = {
@@ -116,12 +117,35 @@ router.post('/delete', function(req, res, next) {
 })
 
 router.post('/group', function(req, res, next) {
-  var id = req.body.id;
+  Posts.findAndGroup().then(r => {
+    var res = r.map(function(elem) {
+      if (!elem._id) {
+        return new Promise(resolve => {
+          resolve(Object.assign(elem, {
+            type: '未分类'
+          }))
+        })
+      }
 
-  Posts.findAndGroup({}, 'type').then(r => {
+      return Type.findbyId(elem._id).then(type => {
+        type = type || {};
+
+        return Object.assign(elem, {
+          type: type.type || ''
+        });
+      })
+    })
+
+    return Promise.all(res)
+  }).then(r => {
     res.json({
       code: 200,
       data: r
+    })
+  }).catch(e => {
+    res.json({
+      code: 504,
+      message: '服务器出错'
     })
   })
 })

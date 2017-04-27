@@ -83,17 +83,18 @@ module.exports = {
     return model.find(query, 'title abstract show pv ctime tag type');
   },
 
-  findAndGroup: function(query, group) {
+  findAndGroup: function(query) {
     query = query || {};
     query.status = 1;
 
-    return model.find(query, 'title abstract show pv ctime tag type').aggregate([{
+    return model.aggregate([{
       '$group': {
         '_id': '$type',
         items: {
           $push: {
             _id: '$_id',
-            title: '$title'
+            title: '$title',
+            abstract: '$abstract'
           }
         }
       }

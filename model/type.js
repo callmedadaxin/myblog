@@ -36,4 +36,8 @@ module.exports = {
       })
     })
   },
+
+  findbyId(id) {
+    return model.findById(id);
+  }
 }
