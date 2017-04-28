@@ -30,8 +30,8 @@ export default {
       loadingContent: true,
       detail: '',
       pos: {
-        top: '50%',
-        left: '50%'
+        top: window.innerHeight / 2 - 130,
+        left: window.innerWidth / 2 - 150
       }
     };
   },
@@ -42,7 +42,6 @@ export default {
       const pos = to.params.pos;
 
       vm.getData(id);
-      vm.pos = pos;
     })
   },
 
@@ -52,7 +51,7 @@ export default {
       this.loadingContent = true;
 
       setTimeout(_=>{
-        this.$router.push({ path: '/home' });
+        this.$router.go(-1);
       }, 300);
     },
 

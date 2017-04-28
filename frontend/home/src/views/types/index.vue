@@ -14,7 +14,7 @@
           <h3 class="type-title">{{ type.type || '' }}</h3>
           <ul class="post-list">
             <li v-for="item in type.items">
-              <h4 class="posts-title">{{item.title}}</h4>
+              <h4 @click="showDetail(item._id)" class="posts-title">{{item.title}}</h4>
               <p>{{item.abstract}}</p>
             </li >
           </ul>
@@ -60,6 +60,10 @@ export default {
       post('posts/group').then(r=>{
         this.contentList = r.data;
       })
+    },
+
+    showDetail(id) {
+      this.$router.push({ name: 'detail', query: { id: id } });
     }
   }
 };
@@ -72,7 +76,7 @@ export default {
 .types-content{
   width: 100%;
   flex: 1;
-  padding: 80px;
+  padding: 60px;
   color: #fff;
 }
 
@@ -148,6 +152,11 @@ export default {
       font-size: 18px;
       font-weight: bold;
       line-height: 1.5;
+
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
 }

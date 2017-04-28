@@ -73,7 +73,6 @@ export default {
       const position = this.getPosition(index);
 
       this.showing = true;
-      this.loadingContent = true;
 
       setTimeout(()=>{
         this.$router.push({ name: 'detail', query: { id: id }, params: { pos: position } });
