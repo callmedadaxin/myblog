@@ -28,7 +28,7 @@ export default {
 
 <style lang="scss" scoped>
 #header{
-  position: fixed;
+  // position: fixed;
   width: 100%;
   color: #fff;
   flex: 0 0 80px;
