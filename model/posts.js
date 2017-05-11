@@ -49,7 +49,7 @@ module.exports = {
     var tags = post.tags;
 
     post.pv = 0;
-    post.date = new Date();
+    post.date = post.ctime || new Date().getTime();
     post.status = 1;
 
     delete post.tag;
@@ -119,7 +119,7 @@ module.exports = {
         return model.count(query)
           .exec()
           .then(function(count) {
-            newMeta.pages = Math.ceil(count / 4);
+            newMeta.pages = Math.ceil(count / newMeta.limit);
 
             return {
               list: data,

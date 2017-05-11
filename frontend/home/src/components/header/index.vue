@@ -8,9 +8,8 @@
       <ul id="header-content">
         <li><router-link to="/home">首页</router-link></li>
         <li><router-link to="/types">分类</router-link></li>
-        <li>标签</li>
-        <li>归档</li>
-        <li>About</li>
+        <li><router-link to="/archives">归档</router-link></li>
+        <li><router-link to="/about">About</router-link></li>
       </ul>
     </div>
   </div>
@@ -60,7 +59,7 @@ export default {
       color: #fff;
       cursor: pointer;
 
-      &:hover{
+      &:hover,&.router-link-active{
         color: #a3fadc;
       }
 

@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
 
 var filePath = '/Users/wangxiaoxin/Documents/Hexo/source/_posts';
 
-
 fs.readdir(filePath, function(err, files) {
   if (err) {
     console.log(err);
@@ -54,12 +53,25 @@ function savaPosts(fileName, stat, data) {
     content: data,
     abstract: '这是文章摘要文章摘要',
     show: 'https://tympanus.net/Development/3DGridEffect/img/2.jpg',
-    ctime: stat.ctime
+    ctime: stat.ctime.getTime(),
+    tags: []
   }
 
   Posts.create(post).then(function(data) {
     console.log('成功保存：' + fileName)
   }, function(err) {
     console.log(err);
+  })
+}
+
+function deleteAll() {
+  Posts.model.find().then(r => {
+    r.forEach(post => {
+      Posts.model.findByIdAndRemove(post._id).then(r => {
+        console.log('delete' + post._id);
+      }).catch(e => {
+        console.log(e);
+      })
+    })
   })
 }

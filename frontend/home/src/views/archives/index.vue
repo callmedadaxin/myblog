@@ -1,38 +1,51 @@
 <template>
-  <div class="types">
-    <div class="types-content">
-      <ul class="type-list">
-        <li v-for="item in contentList" class="tags">
-          <a :href="'#inner' + item._id">
-            {{item.type}}({{item.items.length || 0}})
-          </a>
-        </li >
-      </ul>
-      <ul class="type-content">
-        <li v-for="type in contentList" >
-          <a :name="'inner' + type._id"></a>
-          <h3 class="type-title">{{ type.type || '' }}</h3>
-          <ul class="post-list">
-            <li v-for="item in type.items">
-              <h4 @click="showDetail(item._id)" class="posts-title">{{item.title}}</h4>
-              <p>{{item.abstract}}</p>
-            </li >
-          </ul>
-        </li >
-      </ul>
-    </div>
+  <div class="archives">
+    <ul class="type-content">
+      <li v-for="(posts, time) in groupList" >
+        <h3 class="type-title">{{ time || '' }}</h3>
+        <ul class="post-list">
+          <li v-for="post in posts">
+            <h4 @click="showDetail(post._id)" class="posts-title">{{post.title}}</h4>
+            <p>{{post.abstract}}</p>
+          </li >
+        </ul>
+      </li >
+    </ul>
   </div>
 </template>
 
 <script>
-import { get, post } from 'common/js/api';
+import { post } from 'common/js/api'
 
 export default {
   data () {
     return {
-      types: [],
-      contentList: [],
+      postsList: [],
     };
+  },
+
+  computed: {
+    groupList() {
+      var list = this.postsList,
+        result = {};
+
+      list.forEach(posts => {
+        var time = new Date(parseInt(posts.ctime) || null);
+
+        var year = time.getFullYear();
+        var month = time.getMonth();
+
+        var tag = `${year}-${month}`;
+
+        if(result[tag]) {
+          result[tag].push(posts)
+        } else {
+          result[tag] = [posts]
+        }
+      })
+
+      return result;
+    }
   },
 
   beforeRouteEnter (to, from, next) {
@@ -41,24 +54,22 @@ export default {
     })
   },
 
-  beforeRouteLeave(to, from, next) {
-    const path = to.path;
+  // beforeRouteLeave(to, from, next) {
+  //   const path = to.path;
 
-    if(path.indexOf('inner') >= 0) {
-      next(false);
-    } else {
-      next();
-    }
-  },  
+  //   if(path.indexOf('inner') >= 0) {
+  //     next(false);
+  //   } else {
+  //     next();
+  //   }
+  // },  
 
   methods: {
-    getSize(item) {
-      return item.value + 'px';
-    },
-
     getData() {
-      post('posts/group').then(r=>{
-        this.contentList = r.data;
+      post('posts').then(r=>{
+        this.postsList = r.data.list;
+      }).catch(e=>{
+        this.$toast('服务器出错，请刷新重试！');
       })
     },
 
@@ -70,15 +81,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.types{
+.archives{
   justify-content: flex-start!important;
 }
-.types-content{
+.type-content{
   width: 100%;
   flex: 1;
   padding: 60px;
   color: #fff;
-  max-width: 968px;
 }
 
 .tags{

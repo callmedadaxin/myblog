@@ -80,13 +80,18 @@ export default {
     },
 
     jumpTo(page) {
-      post('posts', {
-        page: page,
-        limit: 9
-      }).then(r=>{
-        this.items = r.data.list;
-        this.meta = r.data.meta;
-      })
+      this.$showLoading();
+
+      setTimeout(_ => {
+        post('posts', {
+          page: page,
+          limit: 9
+        }, true).then(r=>{
+          this.items = r.data.list;
+          this.meta = r.data.meta;
+        })
+      }, 1000)
+      
     },
 
     getPosition(index) {
@@ -111,9 +116,6 @@ export default {
 
 <style lang="scss">
 @media screen and (max-width: 1400px) {
-  html{
-    overflow: hidden;
-  }
   .list-wrap {
     margin-top: 50px;
     transform: scale(0.6);
@@ -237,23 +239,6 @@ export default {
   text-overflow:ellipsis;
   overflow: hidden;
   white-space: nowrap;
-}
-
-.loading{
-  top: 0;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-
-  .loading-icon{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 50px;
-    margin-left: -25px;
-    margin-top: -25px;
-  }
 }
 
 .posts-content{

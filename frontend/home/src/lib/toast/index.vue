@@ -87,8 +87,8 @@ export default {
 .loading-icon {
   background-image: url(../assets/loading.png);
   background-size: 20px 20px;
-  width: 20px;
-  height: 20px;
+  width: 20px!important;
+  height: 20px!important;
   -webkit-animation: rotate 1.6s step-start infinite;
   animation: rotate 1.6s step-start infinite;
   display:inline-block;
