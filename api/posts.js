@@ -32,6 +32,22 @@ router.post('/', function(req, res, next) {
   })
 });
 
+router.post('/detail/marked', function(req, res, next) {
+  var _id = req.body.id;
+
+  Posts.findByIdAndMarked(_id).then(function(data) {
+    res.json({
+      code: 200,
+      data: data
+    });
+  }).catch(function(err) {
+    res.json({
+      code: 500,
+      message: '获取失败，请重试！'
+    })
+  })
+});
+
 router.post('/detail', function(req, res, next) {
   var _id = req.body.id;
 
@@ -41,7 +57,6 @@ router.post('/detail', function(req, res, next) {
       data: data
     });
   }).catch(function(err) {
-    console.log(err);
     res.json({
       code: 500,
       message: '获取失败，请重试！'
@@ -82,7 +97,7 @@ router.post('/add', function(req, res, next) {
 });
 
 router.post('/update', function(req, res, next) {
-  var id = req.body.id,
+  var id = req.body._id,
     title = req.body.title,
     content = req.body.content,
     abstract = req.body.abstract,

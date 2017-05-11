@@ -1,5 +1,5 @@
 <template>
-  <el-card class="content-card content-edit" v-else>
+  <el-card class="content-card content-edit">
     <div slot="header" class="clearfix">
       <span class="card-title">{{title}}</span>
       <!-- <el-button style="float: right;" type="primary">完成</el-button> -->
@@ -86,17 +86,10 @@ export default {
 
   name: 'info-edit',
 
-  props: ['typeList', 'tagList', 'data', 'source'],
+  props: ['typeList', 'tagList', 'data', 'descData', 'edit'],
 
   data () {
     return {
-      descData: {
-        title: '',
-        abstract: '',
-        show: '',
-        tag: [],
-        type: ''
-      },
       inputVisible: false,
       inputTypeVisible: false,
       inputValue: '',
@@ -157,9 +150,11 @@ export default {
     },
 
     onSubmit() {
-      var data = Object.assign(this.descData, { content: this.source });
+      var target = this.edit ? 'update' : 'add';
 
-      post('posts/add', data, true).then(r=> {
+      var data = Object.assign(this.descData);
+
+      post('posts/' + target, data, true).then(r=> {
         this.$router.push({path: '/posts'});
       }).catch(r=>{
         this.$toast(r.message);

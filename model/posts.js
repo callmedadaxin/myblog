@@ -134,10 +134,14 @@ module.exports = {
   // }
 
   findById: function(_id) {
+    return model.findById(_id);
+  },
+
+  findByIdAndMarked: function(_id) {
     return model.findById(_id).then(function(posts) {
       posts.content = marked(posts.content);
 
       return posts;
     });
-  },
+  }
 }

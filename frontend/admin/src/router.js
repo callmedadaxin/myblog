@@ -16,6 +16,11 @@ const routes = [{
   },
 
   {
+    path: '/posts/edit/:id',
+    component: resolve => require(['./views/posts/add/index'], resolve)
+  },
+
+  {
     path: '/tags',
     component: resolve => require(['./views/tags/index'], resolve),
   }

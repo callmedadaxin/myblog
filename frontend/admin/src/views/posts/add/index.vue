@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <el-card class="content-card content-edit" v-if="!editDesc">
+    <el-card class="content-card content-edit" v-show="!editDesc">
       <div slot="header" class="clearfix">
         <span class="card-title">{{title}}</span>
         <el-button style="float: right;" type="primary" @click="goNext">下一步</el-button>
@@ -19,15 +19,15 @@
         </div>
         <div class="contents">
           <div class="left">
-            <textarea v-model="source" cols="30" rows="10" @scroll="onScroll"></textarea>
+            <textarea v-model="descData.content" cols="30" rows="10" @scroll="onScroll"></textarea>
           </div>
           <div class="right posts-inner" ref="preview">
-            <vue-markdown :source="source" :show="true" ></vue-markdown>
+            <vue-markdown :source="descData.content" :show="true" ></vue-markdown>
           </div>
         </div>
       </div>  
     </el-card>
-    <info-edit :data="upLoadData" :source="source" :tag-list="tagList" :type-list="typeList"></info-edit>
+    <info-edit :data="upLoadData" :edit="isEdit" v-show="editDesc" :desc-data="descData" :tag-list="tagList" :type-list="typeList"></info-edit>
   </div>
 </template>
 
@@ -41,7 +41,7 @@ import InfoEdit from './info-edit.vue';
 export default {
   data () {
     return {
-      source: 'sdfsdf ',
+      source: '',
       editDesc: false, //是否编辑信息
       fileList: [],
       upLoadData: {
@@ -49,7 +49,15 @@ export default {
       },
       tagList: [],
       typeList: [],
-      domain: 'http://oowxefv5q.bkt.clouddn.com/'
+      domain: 'http://oowxefv5q.bkt.clouddn.com/',
+      descData: {
+        content: '',
+        title: '',
+        abstract: '',
+        show: '',
+        tag: [],
+        type: ''
+      },
     };
   },
 
@@ -68,6 +76,7 @@ export default {
       vm.getTagList();
       vm.getTypeList();
       vm.getToken();
+      vm.getPostsData();
     })
   },
 
@@ -105,6 +114,12 @@ export default {
         this.$toast(r.message);
       })
     },
+
+    getPostsData() {
+      post('posts/detail', { id: this.$route.params.id }).then(r => {
+        this.descData = r.data;
+      })
+    }
   },
 
   components: {
