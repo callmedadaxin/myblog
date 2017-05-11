@@ -1,12 +1,18 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path'),
-  fs = require('fs'),
-  env = process.env.NODE_ENV || 'development';
+  fs = require('fs');
 
 var dev = require('./dev.js');
 
 var path = require('path'),
   entryName = 'index'; //配置入口文件名称
+
+//获取环境参数
+var env = process.argv[2];
+
+if (['dev', 'test', 'prod'].indexOf(env) < 0) {
+  env = 'dev';
+}
 
 //获取环境对应配置 .env.js
 var envopt = path.resolve(__dirname, './' + env + '.env');
