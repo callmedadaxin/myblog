@@ -26,15 +26,15 @@ module.exports = {
       index: './src/main.js',
     },
     html: [{
-      filename: 'index.html', //模板输出名称
+      filename: 'admin.html', //模板输出名称
       entrys: ['index'], //页面需要引用的入口文件
       title: '测试', //html中的title
       tmplPath: './index.ejs' //模板路径，以src为起始路径
     }, ],
-    htmlOutputPath: '../public/', //模板输出路径
-    assetsRoot: path.resolve(__dirname, '../public/static/'), //静态资源输出根路径
+    htmlOutputPath: '../../../public/tpl/', //模板输出路径
+    assetsRoot: path.resolve(__dirname, '../../../public/assets_admin'), //静态资源输出根路径
     assetsSubDirectory: '',
-    publicPath: './static/', //和正常的PublicPath相同
+    publicPath: '../assets_admin/', //和正常的PublicPath相同
     assetsPublicPath: '../', //css内部图片等资源的公有路径
     productionSourceMap: true,
     envopt: envopt,

@@ -21,7 +21,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
-    publicPath: env.NODE_ENV == 'development' ? config.build.publicPath : env.cdnUrl || config.build.publicPath
+    publicPath: config.build.publicPath
   },
   vue: {
     loaders: utils.cssLoaders({

@@ -8,4 +8,10 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/admin', function(req, res, next) {
+  res.render('admin', {
+    title: '博客管理后台'
+  });
+});
+
 module.exports = router;
