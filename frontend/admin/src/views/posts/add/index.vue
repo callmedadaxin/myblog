@@ -19,7 +19,7 @@
         </div>
         <div class="contents">
           <div class="left">
-            <textarea v-model="descData.content" cols="30" rows="10" @scroll="onScroll"></textarea>
+            <textarea v-model="descData.content" ref="tx" cols="30" rows="10" @scroll="onScroll"></textarea>
           </div>
           <div class="right posts-inner" ref="preview">
             <vue-markdown :source="descData.content" :show="true" ></vue-markdown>
@@ -27,7 +27,13 @@
         </div>
       </div>  
     </el-card>
-    <info-edit :data="upLoadData" :edit="isEdit" v-show="editDesc" :desc-data="descData" :tag-list="tagList" :type-list="typeList"></info-edit>
+    <info-edit :data="upLoadData" 
+      :edit="isEdit" 
+      v-show="editDesc" 
+      :desc-data="descData" 
+      :tag-list="tagList" 
+      :domain="domain"
+      :type-list="typeList"></info-edit>
   </div>
 </template>
 
@@ -36,6 +42,7 @@ import 'common/scss/markdown';
 
 import VueMarkdown from 'vue-markdown';
 import { get, post } from 'common/js/api';
+import { cursorPosition } from 'common/js/base';
 import InfoEdit from './info-edit.vue';
 
 export default {
@@ -88,7 +95,10 @@ export default {
     },
 
     onUploadSuccess(response, file, fileList) {
-      this.source += `![](${this.domain}${response.key})`;
+      var tx = this.$refs.tx,
+        pos = cursorPosition.get(tx);
+
+      cursorPosition.add(tx, pos, `\n![](${this.domain}${response.key})\n`)
     },
 
     onScroll(e) {

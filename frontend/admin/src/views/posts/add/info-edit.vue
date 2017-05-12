@@ -86,7 +86,7 @@ export default {
 
   name: 'info-edit',
 
-  props: ['typeList', 'tagList', 'data', 'descData', 'edit'],
+  props: ['typeList', 'tagList', 'data', 'descData', 'edit', 'domain'],
 
   data () {
     return {
@@ -159,6 +159,10 @@ export default {
       }).catch(r=>{
         this.$toast(r.message);
       })
+    },
+
+    onUploadSuccess(response, file, fileList) {
+      this.descData.show = `${this.domain}${response.key}`;
     },
   }
 };
