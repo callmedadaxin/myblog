@@ -4,10 +4,8 @@
       <ul class="v-list" ref="list">
         <li v-for="(item, index) in items">
           <div class="item-wrap" @click.prevent.stop="showDetail(item._id, index)">
-            <img src="https://p.ssl.qhimg.com/t01c79775dce5c2651e.jpg" alt="">
-            <!-- <img :src="item.show" alt=""> -->
+            <img :src="item.show" alt="">
             <div class="item-bottom">
-              <!-- <i :style="{ backgroundImage: `url(${item.show})` }" class="blur"></i> -->
               <i :style="{ backgroundImage: `url(${item.show})` }" class="blur"></i>
               <h3 class="item-title">{{item.title}}</h3>
               <p class="item-desc">{{item.abstract}}</p>
