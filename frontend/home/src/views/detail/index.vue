@@ -56,7 +56,7 @@ export default {
     },
 
     getData(id) {
-      post('posts/detail', { id: id }).then(r=>{
+      post('posts/detail/marked', { id: id }).then(r=>{
         this.detail = r.data.content;
 
         setTimeout(()=>{
