@@ -4,6 +4,7 @@ const postService = require('../service/posts')
 class PostController extends BaseController {
   async indexAction (ctx) {
     const postList = await postService.findList()
+    console.log(postList)
     ctx.body = {
       code: 200,
       data: postList
@@ -11,4 +12,4 @@ class PostController extends BaseController {
   }
 }
 
-module.exports = PostController
+module.exports = new PostController()

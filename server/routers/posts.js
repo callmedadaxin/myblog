@@ -1,7 +1,6 @@
 const Router = require('koa-router')
 const router = new Router()
-const PostController = require('../controllers/posts')
-const postController = new PostController()
+const postController = require('../controllers/posts')
 
 router.get('/', postController.indexAction)
 
