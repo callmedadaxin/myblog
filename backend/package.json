@@ -1,0 +1,43 @@
+{
+  "name": "koa2-typescript-guide",
+  "version": "0.1.0",
+  "description": "the best practice of building Koa2 with TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "export NODE_ENV=development; nodemon",
+    "build": "npm run lint && tsc",
+    "clean": "npm run clean:build",
+    "clean:build": "rm -rf dist"
+  },
+  "author": "DhyanaChina",
+  "bugs": {
+    "url": "https://github.com/DhyanaChina/koa2-typescript-guide/issues"
+  },
+  "engines": {
+    "node": ">= 7.6"
+  },
+  "devDependencies": {
+    "@types/kcors": "^2.2.2",
+    "@types/koa": "^2.0.43",
+    "@types/koa-bodyparser": "^4.2.0",
+    "@types/koa-logger": "^3.1.0",
+    "@types/koa-router": "^7.0.27",
+    "@types/mongoose": "^5.0.1",
+    "@types/node": "^9.4.0",
+    "ts-node": "^4.1.0",
+    "typescript": "^2.7.1"
+  },
+  "dependencies": {
+    "kcors": "^2.2.1",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-custom-response": "^0.2.2",
+    "koa-logger": "^3.1.0",
+    "koa-respond": "^1.0.1",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.0.3",
+    "mongoose-auto-increment": "^5.0.1",
+    "mongoose-paginate": "^5.0.3"
+  }
+}
